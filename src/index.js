@@ -1,5 +1,3 @@
-// module.exports = 
-
 
 function extractOpenBrackets(array) {
   let arrayOfOpenBrackets = [];
@@ -15,15 +13,34 @@ function extractOpenBrackets(array) {
 }
 
 
+// // первый способ
+// // массив многомерный, потому через slice() создается поверхностная копия. 
+// // Потому нужно провести более глубокое копирование внутренних подмассивов через forEach, чтобы создать полную копию многомерного массива
+// function createBracketsPair(array) {
+//   let invertedArray = []
+//   array.forEach(e => {
+//     invertedArray.push(e.concat());
+//   });
+//   invertedArray.forEach(e => {
+//     [e[0], e[1]] = [e[1], e[0]];
+
+//   });
+//   return Object.fromEntries(invertedArray);
+// }
+
+
+// второй способ
 function createBracketsPair(array) {
   let invertedArray = []
-
   array.forEach(e => {
-    invertedArray.push([e[0], e[1]] = [e[1], e[0]]);
+    //здесь создаем многомерный массив, в котором сразу меняем элементы местами через создание новой переменной
+    const [a, b] = e
+invertedArray.push([b, a]);
   });
 
   return Object.fromEntries(invertedArray);
 }
+
 
 
 
@@ -61,7 +78,10 @@ module.exports = function check(str, bracketsConfig) {
   return stack.length === 0;
 }
 
+// console.log(createBracketsPair('((()))()', config1), createBracketsPair('((()))()', config1), createBracketsPair('((()))()', config1), createBracketsPair('((()))()', config1))
+
 
 
 // console.log(check('((()))()', [['(', ')'], ['[', ']']]));// первая ошибка в тестах 
 // console.log(check('[]()', [['(', ')'], ['[', ']']]));// шестая ошибка в тестах
+// console.log(createBracketsPair('((()))()', config1), createBracketsPair('((()))()', config1), createBracketsPair('((()))()', config1), createBracketsPair('((()))()', config1))
